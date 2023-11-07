@@ -89,9 +89,3 @@ function resultado = encontrarDosMasPequenos(arr)
     end
      
 end
-
-
-
-
-
-
