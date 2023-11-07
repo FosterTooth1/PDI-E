@@ -1,7 +1,7 @@
 % Leer la imagen RGB
 a = imread('peppers.png');
 
-% Calcular el histograma y las probabilidades de los niveles de gris
+% Calcular el histograma y las probabilidades de los niveles de pixeles
 histograma = imhist(a);
 total_pixeles = numel(a);
 probabilidades = histograma / total_pixeles;
