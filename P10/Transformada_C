@@ -1,0 +1,65 @@
+def hamming_encoder(data, n):
+    # Inicializa los bits de paridad en 0
+    parity_bits = [0] * (n - len(data))
+    
+    # Calcula los bits de paridad
+    for i in range(n - len(data)):
+        mask = 1 << i
+        for j in range(len(data)):
+            if j & mask:
+                parity_bits[i] ^= data[j]
+    
+    # Construye el vector codificado
+    encoded_data = parity_bits + data
+
+    return encoded_data
+
+def hamming_error_checker(received_data):
+    # Calcula los bits de paridad
+    parity_bits = []
+    for i in range(len(received_data)):
+        if bin(i + 1).count('1') == 1:  # Verifica si i+1 es una potencia de 2
+            parity_bit = 0
+            for j in range(len(received_data)):
+                if j & (i + 1):
+                    parity_bit ^= received_data[j]
+            parity_bits.append(parity_bit)
+
+    # Calcula el síndrome de error
+    syndrome = sum([bit * (2 ** i) for i, bit in enumerate(reversed(parity_bits))])
+
+    if syndrome == 0:
+        return "No hay errores en el código recibido."
+    else:
+        # Calcula la posición del bit erróneo y corrige
+        error_position = syndrome - 1
+        received_data[error_position] = 1 - received_data[error_position]
+        return f"Se encontro y corrigio un error en la posicion {error_position} del codigo recibido."
+
+def hamming_decoder(received_data, n, k):
+    # Descarta los bits de paridad y retorna los datos originales
+    decoded_data = received_data[len(received_data) - k:]
+    return decoded_data
+
+# Ejemplo de uso con n=8 y k=4
+n = 8
+k = 4
+input_vector = [0, 1, 0, 1]  # Puedes cambiar este vector según tus necesidades
+encoded_vector = hamming_encoder(input_vector, n)
+print(f"Vector original: {input_vector}")
+print(f"Vector codificado: {encoded_vector}")
+
+# Introduce errores en el vector codificado (simulación)
+encoded_vector[1] = 0
+encoded_vector[3] = 1
+print(f"Vector con errores: {encoded_vector}")
+
+# Verifica y corrige los errores
+error_check_result = hamming_error_checker(encoded_vector)
+print(error_check_result)
+if "corrigio" in error_check_result:
+    print(f"Vector corregido: {encoded_vector}")
+
+# Decodifica el vector corregido
+decoded_vector = hamming_decoder(encoded_vector, n, k)
+print(f"Vector decodificado: {decoded_vector}")

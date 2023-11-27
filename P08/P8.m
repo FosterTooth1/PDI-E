@@ -89,4 +89,3 @@ casiF = log10(Dentro);
 final = 10*casiF;
 
 disp(final);
- 
