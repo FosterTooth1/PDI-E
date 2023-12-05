@@ -1,9 +1,10 @@
 % Leer la imagen RGB
-a = imread('cameraman.tif');
+a = [0,11,1,4,18,20,15,27,5,11,15,18,4,19];
+a = uint8(a);
 
 % Calcular el histograma y las probabilidades de los niveles de pixeles
 histograma = imhist(a);
-total_pixeles = numel(a);
+total_pixeles = length(a);
 probabilidades = histograma / total_pixeles;
 
 % Crear el conjunto de mensajes y el diccionario de Huffman
@@ -66,6 +67,11 @@ disp('Cantidad de Información (I):');
 for i = 1:length(I)
     disp(['Valor ' num2str(i-1) ': ' num2str(I(i))]);
 end
+
+bar(0:length(histograma)-1, histograma);
+xlabel('Letras ASSCI');
+ylabel('Frecuencia');
+title('Histograma del arreglo');
 
 % Calcular la entropía
 H = sum((probabilidades) .* I);

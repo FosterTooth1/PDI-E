@@ -21,7 +21,7 @@ def hamming_error_checker(received_data):
         if bin(i + 1).count('1') == 1:  # Verifica si i+1 es una potencia de 2
             parity_bit = 0
             for j in range(len(received_data)):
-                if j & (i + 1):
+                if (j + 1) & (i + 1):  # Ajuste del índice para verificar bits de paridad
                     parity_bit ^= received_data[j]
             parity_bits.append(parity_bit)
 
@@ -33,8 +33,12 @@ def hamming_error_checker(received_data):
     else:
         # Calcula la posición del bit erróneo y corrige
         error_position = syndrome - 1
-        received_data[error_position] = 1 - received_data[error_position]
-        return f"Se encontro y corrigio un error en la posicion {error_position} del codigo recibido."
+        if error_position < len(received_data):
+            received_data[error_position] = 1 - received_data[error_position]
+            return f"Se encontro y corrigio un error en la posicion {error_position} del codigo recibido."
+        else:
+            return "Error: El síndrome indica un bit erróneo fuera del rango del vector recibido."
+
 
 def hamming_decoder(received_data, n, k):
     # Descarta los bits de paridad y retorna los datos originales
@@ -44,7 +48,7 @@ def hamming_decoder(received_data, n, k):
 # Ejemplo de uso con n=8 y k=4
 n = 8
 k = 4
-input_vector = [0, 1, 0, 1]  # Puedes cambiar este vector según tus necesidades
+input_vector = [0,0,1,0,1,1,1,0,1,1]  # Puedes cambiar este vector según tus necesidades
 encoded_vector = hamming_encoder(input_vector, n)
 print(f"Vector original: {input_vector}")
 print(f"Vector codificado: {encoded_vector}")
