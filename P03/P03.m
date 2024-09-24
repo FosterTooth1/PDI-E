@@ -20,10 +20,10 @@ imshow(a);
 
 % Generar coordenadas aleatorias para puntos en las clases: cielo, mar y arena
 c1x = randi([10, n - 10], 1, cielo);  % Genera 'cielo' coordenadas x aleatorias entre 10 y 'n-10'
-c1y = randi([10, round(m / 3)], 1, cielo);  % Genera 'cielo' coordenadas y aleatorias entre 10 y 'm/3'
+c1y = randi([10, round(m / 6)], 1, cielo);  % Genera 'cielo' coordenadas y aleatorias entre 10 y 'm/3'
 
 c2x = randi([10, n - 10], 1, mar);  % Genera 'mar' coordenadas x aleatorias entre 10 y 'n-10'
-c2y = randi([round(m / 3) + 1, round(2 * m / 3)], 1, mar);  % Genera 'mar' coordenadas y aleatorias entre m/3+1 y 2*m/3
+c2y = randi([round(m / 6) + 1, round(2 * m / 3)], 1, mar);  % Genera 'mar' coordenadas y aleatorias entre m/3+1 y 2*m/3
 
 c3x = randi([10, n - 10], 1, arena);  % Genera 'arena' coordenadas x aleatorias entre 10 y 'n-10'
 c3y = randi([round(2 * m / 3) + 1, m - 10], 1, arena);  % Genera 'arena' coordenadas y aleatorias entre 2*m/3+1 y 'm-10'
@@ -92,4 +92,4 @@ while usuario == 0  % Mientras 'usuario' sea 0, continuará el bucle
 end
 
 % Mostrar un mensaje de despedida
-disp('Fin del programa, gracias por usarlo :)')  % Muestra un mensaje de despedida en la ventana de comandos
+disp('Fin del programa, gracias por usarlo')  % Muestra un mensaje de despedida en la ventana de comandos
